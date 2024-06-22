@@ -1,0 +1,36 @@
+services:
+  redis:
+    image: redis
+    ports:
+      - 6379:6379
+  worker:
+    build: .
+    environment:
+      REDIS_HOST: redis
+    command: celery -A imgnet.worker.celery worker -l DEBUG
+    depends_on:
+      - redis
+    volumes:
+      - /tmp:/tmp
+  flower:
+    build: .
+    environment:
+      REDIS_HOST: redis
+    ports:
+      - 5555:5555
+    command: celery -A imgnet.celery_instance.celery flower -l DEBUG --address=0.0.0.0
+    depends_on:
+      - redis
+      - worker
+  imgnet:
+    build: .
+    command: uvicorn --reload --host 0.0.0.0 "imgnet.main:app"
+    environment:
+      REDIS_HOST: redis
+    ports:
+      - 8000:8000
+    depends_on:
+      - redis
+      - worker
+    volumes:
+      - /tmp:/tmp
