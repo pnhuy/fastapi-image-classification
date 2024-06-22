@@ -4,9 +4,10 @@ from tempfile import NamedTemporaryFile
 
 from fastapi import FastAPI, UploadFile
 
-from imgnet.celery_instance import celery
+from imgnet.celery_instance import create_celery
 
 app = FastAPI()
+celery = create_celery()
 
 
 #######

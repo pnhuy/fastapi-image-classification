@@ -5,4 +5,5 @@ RUN pip install poetry
 ENV POETRY_VIRTUALENVS_CREATE=false
 RUN poetry install
 COPY ./imgnet /code/imgnet
+RUN python -m imgnet.worker
 
