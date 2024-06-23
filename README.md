@@ -1,5 +1,17 @@
 # FastAPI Backend Service supporting image classification
 
+This is my backend service that supports image classification using ResNet model (with torch) and FastAPI.
+This also have task queue management with celery.
+
+## Build and run the docker
+
+```
+docker compose build
+docker compose up
+```
+
+If you want to run in your machine instead of run in docker environment, follow the below instructions:
+
 ## Install the requirements
 
 ```
@@ -10,7 +22,7 @@ poetry install
 
 ### Run the Redis database
 
-For example, via docker:
+Install redis db or run via docker:
 
 ```
 docker run --name redis -d --rm -p 6379:6379 redis
